@@ -10,7 +10,7 @@
                     <a href="{{route('courses.create')}}" class="btn btn-success">Novo Curso</a>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-striped text-center">
+                    <table class="table table-striped text-center mb-0">
                         <thead>
                             <tr>
                                 <th>Nome</th>

@@ -10,10 +10,11 @@
                     <a href="{{route('students.create')}}" class="btn btn-success">Novo Aluno</a>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-striped text-center">
+                    <table class="table table-striped text-center mb-0">
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Cursos</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -21,6 +22,17 @@
                             @forelse($students as $student)
                                 <tr>
                                     <td>{{$student->name}}</td>
+                                    <td>
+                                        @forelse($student->courses as $idx=>$studentCourse)
+                                            @if(($idx+1) < $student->courses->count())
+                                                {{$studentCourse->course->name.', '}}
+                                            @else
+                                                {{$studentCourse->course->name}}
+                                            @endif
+                                        @empty
+                                            Sem cursos concluídos
+                                        @endforelse
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <a href="{{route('students.edit', ['student' => $student->id])}}" class="btn btn-primary mr-2">Editar</a>
