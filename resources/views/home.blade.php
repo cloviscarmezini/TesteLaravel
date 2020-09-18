@@ -16,9 +16,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($students as $student)
-                                @if($student->courses)
-                                    @forelse($student->courses as $studentCourse)
+                            @php $empty = 0; @endphp
+                            @foreach($students as $idx=>$student)
+                                @if($student->courses->count())
+                                    @foreach($student->courses as $studentCourse)
                                         <tr>
                                             <td>{{$studentCourse->student->name}}</td>
                                             <td>{{$studentCourse->course->name}}</td>
@@ -26,17 +27,16 @@
                                                 <a href="{{URL::to('studentCertificate',[$studentCourse->student->id, $studentCourse->course->id])}}" class="btn btn-success">Certificado</a>
                                             </td>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="3">Não há estudantes com cursos concluídos. Adicione cursos para um aluno para liberar o certificado.</td>
-                                        </tr>   
-                                    @endforelse
+                                    @endforeach
+                                @else
+                                    @php $empty++; @endphp
                                 @endif
-                            @empty
+                            @endforeach
+                            @if($empty == $students->count())
                                 <tr>
                                     <td colspan="3">Não há estudantes com cursos concluídos. Adicione cursos para um aluno para liberar o certificado.</td>
-                                </tr>   
-                            @endforelse
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
